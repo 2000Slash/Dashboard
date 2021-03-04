@@ -80,7 +80,7 @@ export default {
     methods: {
         stopContainer () {
             this.loading = true;
-            axios.post("http:/containers/" + this.id + "/stop")
+            axios.post("http:/api/containers/" + this.id + "/stop")
             .then(response => {
                 if(response.status == 204) {
                     this.$emit('statusUpdate', this.index, "exited")
@@ -93,8 +93,8 @@ export default {
         },
         startContainer() {
             this.loading = true;
-            axios.post("http:/containers/" + this.id + "/start")
-            .then(response => {
+            axios.post("http:/api/containers/" + this.id + "/start")
+                 .then(response => {
                 if(response.status == 204) {
                     this.$emit('statusUpdate', this.index, "running")
                     this.loading = false
@@ -106,8 +106,8 @@ export default {
         },
         restartContainer() {
             this.loading = true;
-            axios.post("http:/containers/" + this.id + "/restart")
-            .then(response => {
+            axios.post("http:/api/containers/" + this.id + "/restart")
+                 .then(response => {
                 if(response.status == 204) {
                     this.$emit('statusUpdate', this.index, "running")
                     this.loading = false
@@ -119,8 +119,8 @@ export default {
         },
         deleteContainer() {
             this.loading = true;
-            axios.delete("http:/containers/" + this.id)
-            .then(response => {
+            axios.delete("http:/api/containers/" + this.id)
+                 .then(response => {
                 this.$emit('deleted', this.index)
                 this.loading = false
             }, rejected => {

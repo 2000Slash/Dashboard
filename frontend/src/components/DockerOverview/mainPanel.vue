@@ -44,14 +44,14 @@ export default {
             this.containers.splice(index, 1)
         },
         deleteStopped() {
-            axios.post("http:/containers/prune")
-            .then(result => {
+            axios.post("http:/api/containers/prune")
+                 .then(result => {
                 this.fetchData();
             })
         },
         fetchData() {
-            axios.get("http:/containers/json", {params: {all: true}})
-                .then(result => {
+            axios.get("http:/api/containers/json", {params: {all: true}})
+                 .then(result => {
                     console.log(result)
                     this.containers = result.data
             });

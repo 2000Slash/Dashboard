@@ -4,8 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     mode: 'production',
     devServer: {
-      compress: true,
-      disableHostCheck: true
+        compress: true,
+        disableHostCheck: true,
+        port: 8000,
+        proxy: {
+            '/api': 'http://localhost:8080'
+        }
     },
     entry: './src/main.js',
     module: {
