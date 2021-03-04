@@ -16,7 +16,7 @@ To develop for the backend, run ```npx webpack serve``` in the frontend folder. 
 
 ### Building the prod
 
-Building for prod is really easy, thanks to maven profiles. First make sure that mode in webpack.config.js is set to ```production```. You should also remove the @CrossOrigin line in src/main/java/com/nils/main/Controller.jar. Without it, everyone can access the java api. Then simply call maven with ```mvn clean verify -Dprod```. This will download node to the node folder and then run ```npx webpack``` in the frontend. The resulting files get copied automatically to the target/classes/static folder and will be included in the final jar. You can start the production jar the same way as the development jar with ```java -jar target/dashboard-1.0.0.jar```. The frontend is included in the jar and lives in ```http://localhost:8080```, just like the backend which lives in ```http://localhost:8080/api`
+Building for prod is really easy, thanks to maven profiles. First make sure that mode in webpack.config.js is set to ```production```. You should also remove the @CrossOrigin line in src/main/java/com/nils/main/Controller.jar. Without it, everyone can access the java api. Then simply call maven with ```mvn clean verify -Dprod```. This will download node to the node folder and then run ```npx webpack``` in the frontend. The resulting files get copied automatically to the target/classes/static folder and will be included in the final jar. You can start the production jar the same way as the development jar with ```java -jar target/dashboard-1.0.0.jar```. The frontend is included in the jar and lives in ```http://localhost:8080```, just like the backend which lives in ```http://localhost:8080/api```
 
 ### Building a docker container
 
