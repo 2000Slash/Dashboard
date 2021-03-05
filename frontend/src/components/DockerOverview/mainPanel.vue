@@ -5,7 +5,7 @@
                 <docker-container @deleted="deleted" @statusUpdate="changeStatus" :id="c.Id" :state="c.State" :index="index" :title="c.Names[0]" :subtitle="c.Image"/>
             </v-col>
         </v-row>
-        <div align="center">
+        <div v-if="containers != null && containers.length > 0" align="center">
             <v-btn color="red" @click="deleteStopped" dark large class="mt-5">Delete all Stopped</v-btn>
         </div>
     </div>

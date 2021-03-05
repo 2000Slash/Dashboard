@@ -3,7 +3,7 @@
     <Navbar/>
     <v-main>
       <v-container class="mt-5">
-        <DockerOverview/>
+        <router-view></router-view>
       </v-container>
     </v-main>
   </v-app>
@@ -27,4 +27,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+html { overflow-y: auto !important}
 </style>

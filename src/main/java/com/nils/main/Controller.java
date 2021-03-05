@@ -20,6 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(value = "api")
 // When building for prod, you should remove this line or else everyone can access this api
 @CrossOrigin(origins = "*")
 public class Controller {
@@ -27,7 +28,7 @@ public class Controller {
     private final UnixDocker dockerService;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(path = "/api/containers/json", produces = "application/json;")
+    @GetMapping(path = "/containers/json", produces = "application/json;")
     @ResponseBody
     public String getContainers() {
         JsonArrayBuilder containerList = Json.createArrayBuilder();
@@ -36,7 +37,7 @@ public class Controller {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping(path = "/api/containers/prune")
+    @PostMapping(path = "/containers/prune")
     public String pruneContainers(@RequestParam(name = "all", defaultValue = "false") String all) {
         AtomicInteger counter = new AtomicInteger();
         dockerService.containers().all().forEachRemaining(container -> {
@@ -53,28 +54,28 @@ public class Controller {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping(path = "/api/containers/{id}/stop")
+    @PostMapping(path = "/containers/{id}/stop")
     public String stopContainer(@PathVariable(name = "id") String id) throws IOException {
         dockerService.containers().get(id).stop();
         return "success";
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping(path = "/api/containers/{id}/start")
+    @PostMapping(path = "/containers/{id}/start")
     public String startContainer(@PathVariable(name = "id") String id) throws IOException {
         dockerService.containers().get(id).start();
         return "success";
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping(path = "/api/containers/{id}/restart")
+    @PostMapping(path = "/containers/{id}/restart")
     public String restartContainer(@PathVariable(name = "id") String id) throws IOException {
         dockerService.containers().get(id).restart();
         return "success";
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping(path = "/api/containers/{id}")
+    @DeleteMapping(path = "/containers/{id}")
     public String deleteContainer(@PathVariable(name = "id") String id) throws IOException {
         dockerService.containers().get(id).remove();
         return "success";
