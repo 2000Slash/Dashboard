@@ -9,6 +9,6 @@ Vue.use(VueRouter)
 
 new Vue({
     vuetify,
-    router: new VueRouter({mode: 'history', routes}),
+    router: new VueRouter({mode: 'hash', routes}),
     render: h => h(App),
 }).$mount('#app')
