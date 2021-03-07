@@ -1,6 +1,6 @@
 <template>
     <div align="center">
-        <h2>{{title}}</h2>
+        <p class="text-h6">{{title}}</p>
         <v-progress-circular
             :size="100"
             :width="20"
@@ -18,7 +18,20 @@
      props: {
          percent: Number,
          title: String,
-         color: String
+     },
+     computed: {
+         color: function() {
+             return this.rgbToHex(Math.round(this.percent / 100.0 * 255), Math.round(255 - this.percent / 100.0 * 255), 0)
+         }
+     },
+     methods: {
+         rgbToHex(r, g, b) {
+             return "#" + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
+         },
+         componentToHex(c) {
+             var hex = c.toString(16);
+             return hex.length == 1 ? "0" + hex : hex;
+         }
      }
  }
 </script>

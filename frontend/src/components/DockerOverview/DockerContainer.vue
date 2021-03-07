@@ -17,7 +17,7 @@
                 dark
                 small
                 color="light-green"
-                v-if="state=='exited'"
+                v-if="state=='exited' || state=='created'"
                 @click="startContainer"
             >
                 <v-icon dark>mdi-play</v-icon>
@@ -88,6 +88,7 @@ export default {
                 }
             }, rejected => {
                 this.loading = false
+                this.$emit('error', rejected)
                 console.log("Something went wrong: " + rejected)
             })
         },
@@ -101,8 +102,9 @@ export default {
                 }
             }, rejected => {
                 this.loading = false
+                this.$emit('error', rejected)
                 console.log("Something went wrong: " + rejected)
-            })
+                 })
         },
         restartContainer() {
             this.loading = true;
@@ -114,8 +116,9 @@ export default {
                 }
             }, rejected => {
                 this.loading = false
+                this.$emit('error', rejected)
                 console.log("Something went wrong: " + rejected)
-            })
+                 })
         },
         deleteContainer() {
             this.loading = true;
@@ -125,8 +128,9 @@ export default {
                 this.loading = false
             }, rejected => {
                 this.loading = false
+                this.$emit('error', rejected)
                 console.log("Something went wrong: " + rejected)
-            })
+                 })
         }
 
     },

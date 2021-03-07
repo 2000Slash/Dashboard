@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-app-bar color="primary" dark fixed app>
+        <v-app-bar color="primary" dark elevation="1" fixed app>
             <v-app-bar-nav-icon @click="drawer = true"><v-icon dark>mdi-cube-outline</v-icon></v-app-bar-nav-icon>
             <v-toolbar-title style="margin-left: -15px;">Server Dashboard</v-toolbar-title>
             <v-toolbar-items class="ml-10 hidden-xs-only">

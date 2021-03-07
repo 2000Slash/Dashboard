@@ -1,20 +1,21 @@
 package com.nils.main;
 
-import com.amihaiemil.docker.Container;
-import com.amihaiemil.docker.Containers;
 import com.amihaiemil.docker.UnixDocker;
+import com.sun.management.OperatingSystemMXBean;
 import lombok.RequiredArgsConstructor;
+import org.jutils.jprocesses.JProcesses;
+import org.jutils.jprocesses.model.ProcessInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import oshi.SystemInfo;
+import oshi.hardware.GlobalMemory;
 
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.lang.management.ManagementFactory;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,6 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Controller {
     private final Logger logger = LoggerFactory.getLogger(Controller.class);
     private final UnixDocker dockerService;
+    private final OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(path = "/containers/json", produces = "application/json;")
@@ -79,5 +81,20 @@ public class Controller {
     public String deleteContainer(@PathVariable(name = "id") String id) throws IOException {
         dockerService.containers().get(id).remove();
         return "success";
+    }
+
+    @GetMapping(path = "/info/cpu")
+    public double getCpuUsage() {
+        return operatingSystemMXBean.getCpuLoad();
+    }
+
+    @GetMapping(path = "/info/memory")
+    public GlobalMemory getMemoryUsage() {
+        return new SystemInfo().getHardware().getMemory();
+    }
+
+    @GetMapping(path = "/info/processes")
+    public List<ProcessInfo> getProcesses() {
+        return JProcesses.getProcessList();
     }
 }

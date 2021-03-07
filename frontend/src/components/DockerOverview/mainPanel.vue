@@ -1,8 +1,24 @@
 <template>
     <div>
+        <v-snackbar
+      v-model="snackbar"
+    >
+      {{error}}
+
+      <template v-slot:action="{ attrs }">
+          <v-btn
+              color="pink"
+              text
+              v-bind="attrs"
+              @click="snackbar = false"
+          >
+              Close
+          </v-btn>
+      </template>
+        </v-snackbar>
         <v-row align="center" justify="center">
             <v-col :cols="cols" v-for="(c, index) in containers" :key="c.Id">
-                <docker-container @deleted="deleted" @statusUpdate="changeStatus" :id="c.Id" :state="c.State" :index="index" :title="c.Names[0]" :subtitle="c.Image"/>
+                <docker-container @error="showError" @deleted="deleted" @statusUpdate="changeStatus" :id="c.Id" :state="c.State" :index="index" :title="c.Names[0]" :subtitle="c.Image"/>
             </v-col>
         </v-row>
         <div v-if="containers != null && containers.length > 0" align="center">
@@ -33,7 +49,9 @@ export default {
     },
     data: function() {
         return {
-            containers: null
+            containers: null,
+            snackbar: false,
+            error: ""
         }
     },
     methods: {
@@ -55,6 +73,11 @@ export default {
                     console.log(result)
                     this.containers = result.data
             });
+        },
+        showError(errorText) {
+            this.error = errorText
+            this.snackbar = true;
+
         }
     },
     created: function() {
