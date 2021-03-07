@@ -1,9 +1,9 @@
 {
-  "name": "node",
+  "name": "Dashboard",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Dashboard for a server.",
   "keywords": [],
-  "author": "",
+  "author": "Nils Hartmann",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
@@ -12,6 +12,7 @@
     "vuetify": "^2.4.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.13.8",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.1.0",
     "deepmerge": "^4.2.2",
